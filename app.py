@@ -1,0 +1,85 @@
+import os
+from main import *
+class Sistema:
+    def __init__(self):
+        self.estado = True
+    
+    def run(self):
+        while self.estado == True:
+            print("""Boas vindas ao sistema de bibliotecas.
+                
+Escolha uma das opções abaixo para logar:
+
+1- Logar como Usuário
+2- Logar como Bibliotecário
+3- Sair
+                """)
+            escolha = input('Digite aqui o valor desejado: ')
+            if escolha == '1':
+                os.system('cls')
+                nome = input("Digite aqui seu nome: ")
+                if nome != '':
+                    return self.funcoesUsuario(nome)
+                else:
+                    print('Nome inválido')                
+                    continue
+            elif escolha =='2':
+                os.system('cls')
+                return self.funcoesBibliotecario()
+            elif escolha == '3':
+                return print("Obrigado pela preferência, volte sempre!")
+            else: 
+                print("""Valor inválido""")
+
+    
+    def funcoesUsuario(self, nome):
+        usuario = biblioteca.cadastrar_usuario(nome)
+        os.system('cls')
+        print(f"Logado como: {usuario.nome} - ID: {usuario.id}")
+        
+        while True:
+            print('')
+            print(f"""Seja bem vindo: {usuario.nome}! 
+O que deseja fazer?
+
+1- Pegar livro
+2- Devolver livro
+3- Consultar livros
+4- Ver Historico
+5- Voltar ao menu principal""")
+            escolha = input('Digite aqui o valor desejado: ')
+            if escolha == '1':
+                os.system('cls')
+                print("Escolha das opções abaixo, o livro que quer pegar")
+                biblioteca.mostrar_livros()
+                id_livro = int(input("Digite aqui o ID escolhido: "))
+                if id_livro > biblioteca.len_livros() or id_livro < 0 or id_livro == '':
+                    print('ID inválido! Tente novamente\n')
+                elif biblioteca.verificarId(id_livro) == "Emprestado":
+                    os.system('cls')
+                    print('Não foi possivel concluir o pedido. O livro ja esta emprestado a outra pessoa.')
+                else:
+                    data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
+                    biblioteca.realizar_emprestimo(id_livro,data, usuario.id)
+            elif escolha =='2':
+                os.system('cls')
+                print("Escolha um livro para devolver:")    
+                for u in usuario.livros:
+                    print(f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
+                id_escolha = int(input('Digite aqui o ID para devolver: '))
+                data_devolucao = input("Digite aqui a data de devolução em dd/mm/yyyy: ")
+                 
+                biblioteca.realizar_devolucao(id_escolha,data_devolucao, usuario.id)
+            elif escolha =='4':
+                os.system('cls')
+                for u in usuario.historico:
+                    print(f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
+                input('')
+                    
+    
+    def funcoesBibliotecario(self):
+        print("opa")
+
+            
+sistema = Sistema()
+sistema.run()
