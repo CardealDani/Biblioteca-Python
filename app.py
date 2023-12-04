@@ -35,10 +35,11 @@ Escolha uma das opções abaixo para logar:
     def funcoesUsuario(self, nome):
         usuario = biblioteca.cadastrar_usuario(nome)
         os.system('cls')
-        print(f"Logado como: {usuario.nome} - ID: {usuario.id}")
         
         while True:
-            print('')
+           
+            print(f"Logado como: {usuario.nome} - ID: {usuario.id}")
+            
             print(f"""Seja bem vindo: {usuario.nome}! 
 O que deseja fazer?
 
@@ -72,12 +73,12 @@ O que deseja fazer?
                 biblioteca.realizar_devolucao(id_escolha,data_devolucao, usuario.id)
             
             elif escolha =='3':
-                self.menuBuscas()
-                escolha_busca = input("Digite aqui sua escolha: ")
+                escolha_busca = self.menuBuscas()
                 if escolha_busca =='1':
                     escolha_busca_id = int(input('Digite o ID do livro: '))
                     biblioteca.buscar_por_id(escolha_busca_id)
-                    if biblioteca.verificarId(escolha_busca_id) == "Disponível":
+                    print(biblioteca.verificarId(escolha_busca_id))
+                    if biblioteca.verificarId(escolha_busca_id) == "Disponivel":
                         print("""Livro disponível para empréstimo!
 Se desejar pegar o livro, digite 1
 Se desejar voltar ao menu de buscas, digite 2,
@@ -88,8 +89,6 @@ Se deseja sair, digite 9""")
                             data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
                             biblioteca.realizar_emprestimo(escolha_busca_id,data, usuario.id)
                         elif escolha_pegar_livro == '2':
-                            self.menuBuscas()
-                        elif escolha_pegar_livro == '3':
                             continue
                         elif escolha_pegar_livro == '9':
                             return print("Obrigado pela preferência, volte sempre!")
@@ -98,6 +97,38 @@ Se deseja sair, digite 9""")
                     os.system('cls')
                     escolha_busca_titulo = input('Digite o Título do livro: ')
                     biblioteca.buscar_por_titulo(escolha_busca_titulo)
+                    print("""Se desejar pegar algum livro, digite 1
+Se desejar voltar ao menu digite 2
+Se deseja sair, digite 9""")
+                    escolha_pegar_livro= input("Digite aqui sua escolha: ")
+                    if escolha_pegar_livro == '1':
+                        escolha_busca_id = int(input('Digite o ID do livro: '))
+                        data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
+                        biblioteca.realizar_emprestimo(escolha_busca_id,data, usuario.id)
+                    elif escolha_pegar_livro == '2':
+                        continue
+                    elif escolha_pegar_livro == '9':
+                        return print("Obrigado pela preferência, volte sempre!")
+
+                elif escolha_busca == '3':
+                    os.system('cls')
+                    escolha_busca_autor = input('Digite o Autor do livro: ')
+                    biblioteca.buscar_por_autor(escolha_busca_autor)
+                    print(" ")
+                    print("""Se desejar pegar algum livro, digite 1
+Se desejar voltar ao menu digite 2
+Se deseja sair, digite 9""")
+                    escolha_pegar_livro= input("Digite aqui sua escolha: ")
+                    if escolha_pegar_livro == '1':
+                        escolha_busca_id = int(input('Digite o ID do livro: '))
+                        data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
+                        biblioteca.realizar_emprestimo(escolha_busca_id,data, usuario.id)
+                    elif escolha_pegar_livro == '2':
+                        continue
+                    elif escolha_pegar_livro == '9':
+                        return print("Obrigado pela preferência, volte sempre!")
+
+
                             
                             
                             
@@ -110,6 +141,9 @@ Se deseja sair, digite 9""")
                 for u in usuario.historico:
                     print(f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
                 input('')
+            elif escolha == '5':
+                os.system('cls')
+                biblioteca.mostrar_livros()
                     
     
     def funcoesBibliotecario(self):
@@ -124,6 +158,10 @@ Se deseja sair, digite 9""")
 3- Buscar livro por Autor
 4- Buscar livro por Gênero
 5- Ver todos os livros""")
+        escolha_busca = input("Digite aqui sua escolha: ")
+        return escolha_busca
+
+        
 
             
 sistema = Sistema()

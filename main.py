@@ -122,8 +122,16 @@ class Biblioteca:
             for t in titulos:
                 print(t.__str__())
         else: print("Titulo nao encontrado!")
+
+
     def buscar_por_autor(self, autor):
-        return [livro for livro in self.livros if autor.lower() in livro.autor.lower()]
+        titulos = [livro for livro in self.livros if autor.lower() in livro.autor.lower()]
+        if titulos:
+            print("Livros encontrados:")
+            for t in titulos:
+                print(t.__str__())
+                
+        else: print("Autores nao encontrado!")
 
     def relatorio_emprestimos(self):
         relatorio = []
