@@ -70,6 +70,41 @@ O que deseja fazer?
                 data_devolucao = input("Digite aqui a data de devolução em dd/mm/yyyy: ")
                  
                 biblioteca.realizar_devolucao(id_escolha,data_devolucao, usuario.id)
+            
+            elif escolha =='3':
+                self.menuBuscas()
+                escolha_busca = input("Digite aqui sua escolha: ")
+                if escolha_busca =='1':
+                    escolha_busca_id = int(input('Digite o ID do livro: '))
+                    biblioteca.buscar_por_id(escolha_busca_id)
+                    if biblioteca.verificarId(escolha_busca_id) == "Disponível":
+                        print("""Livro disponível para empréstimo!
+Se desejar pegar o livro, digite 1
+Se desejar voltar ao menu de buscas, digite 2,
+Se deseja voltar ao menu de usuario, digite 3,
+Se deseja sair, digite 9""")
+                        escolha_pegar_livro= input("Digite aqui sua escolha: ")
+                        if escolha_pegar_livro == '1':
+                            data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
+                            biblioteca.realizar_emprestimo(escolha_busca_id,data, usuario.id)
+                        elif escolha_pegar_livro == '2':
+                            self.menuBuscas()
+                        elif escolha_pegar_livro == '3':
+                            continue
+                        elif escolha_pegar_livro == '9':
+                            return print("Obrigado pela preferência, volte sempre!")
+                
+                elif escolha_busca =='2':
+                    os.system('cls')
+                    escolha_busca_titulo = input('Digite o Título do livro: ')
+                    biblioteca.buscar_por_titulo(escolha_busca_titulo)
+                            
+                            
+                            
+                            
+                            
+                print("")
+            
             elif escolha =='4':
                 os.system('cls')
                 for u in usuario.historico:
@@ -79,6 +114,16 @@ O que deseja fazer?
     
     def funcoesBibliotecario(self):
         print("opa")
+        
+    def menuBuscas(self):
+        os.system('cls')
+        print("Consulta de Livros")
+        print("")
+        print("""1 - Buscar livro por ID
+2- Buscar livro por Titulo
+3- Buscar livro por Autor
+4- Buscar livro por Gênero
+5- Ver todos os livros""")
 
             
 sistema = Sistema()

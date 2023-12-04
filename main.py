@@ -8,7 +8,7 @@ class Livro:
         self.estado = "Disponivel"
         self.emprestado_a = None
     def __str__(self):
-        return f'Id: {self.id} || Titulo: {self.titulo}'
+        return f'ID {self.id}: {self.titulo} - {self.autor} - {self.tag} - {self.estado}'
 
 class Usuario:
     def __init__(self, nome,id):
@@ -39,7 +39,9 @@ class Biblioteca:
             Livro(7, "O Grande Gatsby", "F. Scott Fitzgerald", "Romance"),
             Livro(8, "A Revolução dos Bichos", "George Orwell", "Alegoria"),
             Livro(9, "O Pequeno Príncipe", "Antoine de Saint-Exupéry", "Fantasia"),
-            Livro(10, "O Homem de Giz", "C. J. Tudor", "Drama")
+            Livro(10, "O Homem de Giz", "C. J. Tudor", "Drama"),
+            Livro(11, "Harry Potter e A pedra filosofal", "J.K. Rowling", "Fantasia")
+            
             ]
 
 
@@ -64,7 +66,6 @@ class Biblioteca:
             print(f'Users: {self.usuarios[id_usuario]}')
             self.usuarios[id_usuario].livros.append(self.livros[id_livro])
             self.usuarios[id_usuario].historico.append(self.livros[id_livro])
-
             self.livros[id_livro].emprestado_a = self.usuarios[id_usuario]
             
             os.system('cls')
@@ -90,7 +91,11 @@ class Biblioteca:
             return "Livro não foi emprestado"
 
     def buscar_por_id(self, livro_id):
-        return self._busca_binaria_livro(self.livros, livro_id)
+        busca = self._busca_binaria_livro(self.livros, livro_id)
+        if busca:
+            return print(f"Livro encontrado: {busca.titulo} (ID: {busca.id})")
+        else:
+            return print("Livro não encontrado")
 
     def _busca_binaria_livro(self, livros, livro_id):
         inicio = 0
@@ -109,9 +114,14 @@ class Biblioteca:
 
         return None
 
-    def buscar_por_titulo(self, titulo):
-        return [livro for livro in self.livros if titulo.lower() in livro.titulo.lower()]
 
+    def buscar_por_titulo(self, titulo):
+        titulos = [livro for livro in self.livros if titulo.lower() in livro.titulo.lower()]
+        if titulos:
+            print("Livros encontrados:")
+            for t in titulos:
+                print(t.__str__())
+        else: print("Titulo nao encontrado!")
     def buscar_por_autor(self, autor):
         return [livro for livro in self.livros if autor.lower() in livro.autor.lower()]
 
@@ -129,7 +139,7 @@ class Biblioteca:
             print('ID -TITULO - AUTOR - TAG - ESTADO')
             print(" ")             
             for l in self.livros:
-                print(f'{l.id}: {l.titulo} - {l.autor} - {l.tag} - {l.estado}')
+                print(l.__str__())
     
     def len_livros(self):
         return len(self.livros)
