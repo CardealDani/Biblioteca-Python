@@ -225,7 +225,7 @@ class UsuarioMenu:
         os.system('cls')
         print("Consulta de Livros")
         print("")
-        print("""1 - Buscar livro por ID
+        print("""1- Buscar livro por ID
 2- Buscar livro por Titulo
 3- Buscar livro por Autor
 4- Buscar livro por Gênero
@@ -234,8 +234,14 @@ class UsuarioMenu:
 
         if escolha_busca == '1':
             self.buscarPorId()
-        if escolha_busca == '2':
+        elif escolha_busca == '2':
             self.buscarPorTitulo()
+        elif escolha_busca == '3':
+            self.buscarPorAutor()
+        elif escolha_busca == '4':
+            self.buscarPorGenero()
+        elif escolha_busca == '5':
+            self.buscarTodos()
 
     def verHistorico(self):
         os.system('cls')
@@ -278,6 +284,7 @@ class UsuarioMenu:
             print("O livro não está disponível para entrega")
             print("")
             self.pegarLivroBusca()
+    
     def buscarPorTitulo(self):
         os.system('cls')
         escolha_busca_titulo = input('Digite o Título do livro: ')
@@ -287,6 +294,28 @@ class UsuarioMenu:
         print("")
         self.pegarLivroBusca()
 
+    def buscarPorAutor(self):
+        os.system('cls')
+        escolha_busca_autor = input('Digite o Autor do livro: ')
+        print("")
+        biblioteca.buscar_por_autor(escolha_busca_autor)
+        print(" ")
+        self.pegarLivroBusca()
+
+    def buscarPorGenero(self):
+        os.system('cls')
+        escolha_busca_genero = input('Digite o Gênero do livro: ')
+        print(" ")
+        biblioteca.buscar_por_genero(escolha_busca_genero)
+        print(" ")
+        self.pegarLivroBusca()     
+    
+    def buscarTodos(self):
+        os.system('cls')
+        biblioteca.mostrar_livros()
+        print(" ")
+        self.pegarLivroBusca()
+    
     def pegarLivroBusca(self, id_livro=None, mostrar_livros=False):
         if mostrar_livros:
             biblioteca.mostrar_livros()
@@ -300,7 +329,6 @@ Se desejar voltar ao menu digite 2
 Se deseja sair, digite 9\n""")
             escolha_pegar_livro = input("Digite aqui sua escolha: ")
             if escolha_pegar_livro == '1':
-                os.system('cls')
                 print("""Digite o ID do livro.
 Se não souber o id do livro, digite 'm' para mostrar os livros.
 Se deseja voltar ao menu, digite 'v'""")
@@ -312,7 +340,7 @@ Se deseja voltar ao menu, digite 'v'""")
                 elif input_id == 'v':
                     return
                 else:
-                    self.pegarLivro(id=input_id)
+                    self.pegarLivro(id_parametro=input_id)
             elif escolha_pegar_livro == '2':
                 self.menuConsultarLivro()
             elif escolha_pegar_livro == '9':
