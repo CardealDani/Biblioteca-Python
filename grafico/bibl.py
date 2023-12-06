@@ -5,10 +5,10 @@ class Livro:
         self.titulo = titulo
         self.autor = autor
         self.tag = tag
-        self.estado = "Disponivel"
+        self.estado = "Disponível"
         self.emprestado_a = None
     def __str__(self):
-        return f'ID {self.id}: {self.titulo} - {self.autor} - {self.tag} - {self.estado}'
+        return [self.id,self.titulo,self.autor,self.tag,self.estado]
 
 class Usuario:
     def __init__(self, nome,id):
@@ -30,18 +30,26 @@ class Biblioteca:
        self.usuarios = []
        self.emprestimos = []
        self.livros = [
-            Livro(0, "O Senhor dos Anéis", "J.R.R. Tolkien", "Fantasia"),
             Livro(1, "Harry Potter", "J.K. Rowling", "Fantasia"),
-            Livro(9, "Orgulho e Preconceito", "Jane Austen", "Romance"),
+            Livro(2, "O Pequeno Príncipe", "Antoine de Saint-Exupéry", "Fantasia"),
             Livro(3, "1984", "George Orwell", "Ficção Científica"),
             Livro(4, "Dom Quixote", "Miguel de Cervantes", "Romance"),
-            Livro(53, "Cem Anos de Solidão", "Gabriel García Márquez", "Realismo Mágico"),
-            Livro(6, "Crime e Castigo", "Fyodor Dostoevsky", "Ficção Psicológica"),
-            Livro(74, "O Grande Gatsby", "F. Scott Fitzgerald", "Romance"),
-            Livro(85, "A Revolução dos Bichos", "George Orwell", "Alegoria"),
-            Livro(2, "O Pequeno Príncipe", "Antoine de Saint-Exupéry", "Fantasia"),
-            Livro(10, "O Homem de Giz", "C. J. Tudor", "Drama"),
-            Livro(13, "Harry Potter e A pedra filosofal", "J.K. Rowling", "Fantasia")
+            Livro(5, "Crime e Castigo", "Fyodor Dostoevsky", "Ficção Psicológica"),
+            Livro(6, "Cem Anos de Solidão", "Gabriel García Márquez", "Realismo Mágico"),
+            Livro(7, "A Revolução dos Bichos", "George Orwell", "Alegoria"),
+            Livro(8, "Orgulho e Preconceito", "Jane Austen", "Romance"),
+            Livro(9, "O Homem de Giz", "C. J. Tudor", "Drama"),
+            Livro(10, "A Menina que Roubava Livros", "Markus Zusak", "Romance Histórico"),
+            Livro(11, "As Crônicas de Nárnia", "C.S. Lewis", "Fantasia"),
+            Livro(12, "Harry Potter e A pedra filosofal", "J.K. Rowling", "Fantasia"),
+            Livro(13, "Matar um Rouxinol", "Harper Lee", "Drama"),
+            Livro(14, "A Moreninha", "Joaquim Manuel de Macedo", "Romance"),
+            Livro(15, "O Iluminado", "Stephen King", "Horror"),
+            Livro(16, "Memórias Póstumas de Brás Cubas", "Machado de Assis", "Sátira"),
+            Livro(40, "A Guerra dos Tronos", "George R.R. Martin", "Fantasia Épica"),
+            Livro(18, "O Hobbit", "J.R.R. Tolkien", "Fantasia"),
+            Livro(19, "O Alquimista", "Paulo Coelho", "Ficção Inspiracional"),
+            Livro(20, "A Arte da Guerra", "Sun Tzu", "Filosofia Militar"),
             ]
 
     def mostrar_por_id(self, livro_id):
@@ -111,20 +119,18 @@ class Biblioteca:
 
     def realizar_emprestimo(self, id_livro, data_emprestimo, id_usuario):
        
-
-        self.livros[id_livro].estado = "Emprestado"
         novo_emprestimo = Emprestimo(id_livro,self.livros[id_livro], self.usuarios[id_usuario], data_emprestimo)
         self.emprestimos.append(novo_emprestimo)
         self.usuarios[id_usuario].livros.append(self.livros[id_livro])
         self.usuarios[id_usuario].historico.append(self.livros[id_livro])
         self.livros[id_livro].emprestado_a = self.usuarios[id_usuario]
         os.system('cls')
-        print(f'Livro {self.livros[id_livro]} - {self.livros[id_livro].titulo} - foi emprestado para você!\nBoas leituras :D')
+        print(f'Livro {self.livros[id_livro].id} - {self.livros[id_livro].titulo} - foi emprestado para você!\nBoas leituras :D')
 
     def verificarEstadoLivro(self, id_livro):
-        # novo_id = self.binary_search(self.livros, id_livro)
-        return self.livros[id_livro].estado
-        
+            if self.livros[id_livro].estado == "Disponível":
+                return True
+            else: return False
     
     def realizar_devolucao(self, id_livro,id_emprestimo, data_devolucao, id_usuario):
             self.livros[id_livro].estado = "Disponível"
@@ -172,8 +178,7 @@ class Biblioteca:
             print('ID -TITULO - AUTOR - TAG - ESTADO')
             print(" ")
             livros_ordenados= self.merge_sort(self.livros) 
-            for l in livros_ordenados:
-                print(l.__str__())
+            return livros_ordenados
                 
     
     def merge_sort(self, arranjo):
