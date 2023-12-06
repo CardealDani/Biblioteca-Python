@@ -65,6 +65,8 @@ def merge_sort(arranjo):
             arranjo[k] = right[j]
             j += 1
             k += 1
+        
+        return arranjo
 
 
 # Verifica se x estÃ¡ presente em arranjo, retornando

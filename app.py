@@ -1,4 +1,5 @@
 import os
+import time
 from main import *
 
 
@@ -25,134 +26,13 @@ class Sistema:
                     continue
             elif escolha == '2':
                 os.system('cls')
-                return self.funcoesBibliotecario()
+                bibliotecario = BibliotecarioMenu()
+                bibliotecario.menu()
             elif escolha == '3':
                 return print("Obrigado pela preferência, volte sempre!")
             else:
                 print("""Valor inválido""")
 
-    def funcoesUsuario(self, nome):
-        usuario = biblioteca.cadastrar_usuario(nome)
-        os.system('cls')
-
-        while True:
-
-            print(f"Logado como: {usuario.nome} - ID: {usuario.id}")
-
-            print(f"""Seja bem vindo: {usuario.nome}!
-            O que deseja fazer?
-
-            1- Pegar livro
-            2- Devolver livro
-            3- Consultar livros
-            4- Ver Historico
-            5- Voltar ao menu principal""")
-            escolha = input('Digite aqui o valor desejado: ')
-            if escolha == '1':
-                os.system('cls')
-                print("Escolha das opções abaixo, o livro que quer pegar")
-                biblioteca.mostrar_livros()
-                id_livro = int(input("Digite aqui o ID escolhido: "))
-                if id_livro > biblioteca.len_livros() or id_livro < 0 or id_livro == '':
-                    print('ID inválido! Tente novamente\n')
-                elif biblioteca.verificarId(id_livro) == "Emprestado":
-                    os.system('cls')
-                    print(
-                        'Não foi possivel concluir o pedido. O livro ja esta emprestado a outra pessoa.')
-                else:
-                    data = input(
-                        "Digite aqui a data de empréstimo em dd/mm/yyyy: ")
-                    biblioteca.realizar_emprestimo(id_livro, data, usuario.id)
-            elif escolha == '2':
-                os.system('cls')
-                print("Escolha um livro para devolver:")
-                for u in usuario.livros:
-                    print(
-                        f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
-                id_escolha = int(input('Digite aqui o ID para devolver: '))
-                data_devolucao = input(
-                    "Digite aqui a data de devolução em dd/mm/yyyy: ")
-
-                biblioteca.realizar_devolucao(
-                    id_escolha, data_devolucao, usuario.id)
-
-            elif escolha == '3':
-                escolha_busca = self.menuBuscas()
-                if escolha_busca == '1':
-                    escolha_busca_id = int(input('Digite o ID do livro: '))
-                    biblioteca.buscar_por_id(escolha_busca_id)
-                    print(biblioteca.verificarId(escolha_busca_id))
-                    if biblioteca.verificarId(escolha_busca_id) == "Disponivel":
-                        print("""Livro disponível para empréstimo!
-                        Se desejar pegar o livro, digite 1
-                        Se desejar voltar ao menu de buscas, digite 2,
-                        Se deseja voltar ao menu de usuario, digite 3,
-                        Se deseja sair, digite 9""")
-                        escolha_pegar_livro = input(
-                            "Digite aqui sua escolha: ")
-                        if escolha_pegar_livro == '1':
-                            data = input(
-                                "Digite aqui a data de empréstimo em dd/mm/yyyy: ")
-                            biblioteca.realizar_emprestimo(
-                                escolha_busca_id, data, usuario.id)
-                        elif escolha_pegar_livro == '2':
-                            continue
-                        elif escolha_pegar_livro == '9':
-                            return print("Obrigado pela preferência, volte sempre!")
-
-                elif escolha_busca == '2':
-                    os.system('cls')
-                    escolha_busca_titulo = input('Digite o Título do livro: ')
-                    biblioteca.buscar_por_titulo(escolha_busca_titulo)
-                    print("""Se desejar pegar algum livro, digite 1
-                        Se desejar voltar ao menu digite 2
-                        Se deseja sair, digite 9""")
-                    escolha_pegar_livro = input("Digite aqui sua escolha: ")
-                    if escolha_pegar_livro == '1':
-                        escolha_busca_id = int(input('Digite o ID do livro: '))
-                        data = input(
-                            "Digite aqui a data de empréstimo em dd/mm/yyyy: ")
-                        biblioteca.realizar_emprestimo(
-                            escolha_busca_id, data, usuario.id)
-                    elif escolha_pegar_livro == '2':
-                        continue
-                    elif escolha_pegar_livro == '9':
-                        return print("Obrigado pela preferência, volte sempre!")
-
-                elif escolha_busca == '3':
-                    os.system('cls')
-                    escolha_busca_autor = input('Digite o Autor do livro: ')
-                    biblioteca.buscar_por_autor(escolha_busca_autor)
-                    print(" ")
-                    print("""Se desejar pegar algum livro, digite 1
-                    Se desejar voltar ao menu digite 2
-                    Se deseja sair, digite 9""")
-                    escolha_pegar_livro = input("Digite aqui sua escolha: ")
-                    if escolha_pegar_livro == '1':
-                        escolha_busca_id = int(input('Digite o ID do livro: '))
-                        data = input(
-                            "Digite aqui a data de empréstimo em dd/mm/yyyy: ")
-                        biblioteca.realizar_emprestimo(
-                            escolha_busca_id, data, usuario.id)
-                    elif escolha_pegar_livro == '2':
-                        continue
-                    elif escolha_pegar_livro == '9':
-                        return print("Obrigado pela preferência, volte sempre!")
-
-                print("")
-
-            elif escolha == '4':
-
-                input('')
-            elif escolha == '5':
-                os.system('cls')
-                biblioteca.mostrar_livros()
-
-    def funcoesBibliotecario(self):
-        print("opa")
-
-    def menuBuscas(self):
-        ...
 
 
 class UsuarioMenu:
@@ -170,11 +50,12 @@ class UsuarioMenu:
 3- Consultar livro
 4- Ver Historico
 5- Voltar ao menu principal\n""")
-            escolha_menu = input('Digite aqui o valor desejado: ')
+            escolha_menu = self.methodInput('Digite aqui o valor desejado: ')
             if escolha_menu == '1':
                 os.system('cls')
                 print("Escolha das opções abaixo, o livro que quer pegar")
                 biblioteca.mostrar_livros()
+                print("")
                 self.pegarLivro()
             elif escolha_menu == '2':
                 self.devolverLivro()
@@ -187,40 +68,41 @@ class UsuarioMenu:
 
     def pegarLivro(self, id_parametro=None):
         if id_parametro == None:
-            id_livro = input("Digite aqui o ID do livro: ")
-            while id_livro != "v" and not id_livro.isnumeric():
-                id_livro = input('Digite um valor válido: ')
-            if id_livro == "v":
-                os.system('cls')
+            id_livro = int(self.methodInput(mensagem="Digite aqui o ID do livro: "))
+            if id_livro == "$":
                 return
+            aux = biblioteca.emptyId(id_livro)
+            
+            if not aux:
+                print("Não existe nenhum livro com esse ID")
             else:
-                print(id_livro)
-                id_livro = int(id_livro)
+                id_livro = aux[1]
         else:
-            print(id_parametro)
             id_livro = int(id_parametro)
-        if id_livro > biblioteca.len_livros() or id_livro < 0 or id_livro == '':
+        if id_livro > biblioteca.len_livros() or id_livro < 0:
             print('ID inválido! Tente novamente\n')
-        elif biblioteca.verificarId(id_livro) == "Emprestado":
-            os.system('cls')
+        elif biblioteca.verificarEstadoLivro(int(id_livro)) =="Emprestado":
+            # os.system('cls')
             print('Não foi possivel concluir o pedido. O livro ja esta emprestado.')
         else:
-            data = input("Digite aqui a data de empréstimo em dd/mm/yyyy:")
+            data = input("Digite aqui a data de empréstimo em dd/mm/yyyy: ")
             biblioteca.realizar_emprestimo(id_livro, data, self.usuario.id)
 
     def devolverLivro(self):
         os.system('cls')
         print("Escolha um livro para devolver:")
         for u in self.usuario.livros:
-            print(
-                f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
-            id_escolha = int(input('Digite aqui o ID para devolver: '))
-            data_devolucao = input(
-                "Digite aqui a data de devolução em dd/mm/yyyy: ")
-
-            biblioteca.realizar_devolucao(
-                id_escolha, data_devolucao, self.usuario.id)
-
+            print(f'Id: {u.id} - Titulo: {u.titulo} - Estado: {u.estado}')
+        id_escolha =int(self.methodInput(mensagem="Digite aqui o ID do livro para devolver:"))
+        if id_escolha == "$":
+            return
+        id_emprestimo = biblioteca.emptyId(int(id_escolha),emprestimo=True)
+        if id_emprestimo:
+            data_devolucao = input("Digite aqui a data de devolução em dd/mm/yyyy: ")
+            result = biblioteca.realizar_devolucao(id_escolha,id_emprestimo[1], data_devolucao, self.usuario.id)
+            print(result)
+        else: print("Nenhum livro emprestado com esse ID")
+        
     def menuConsultarLivro(self):
         os.system('cls')
         print("Consulta de Livros")
@@ -229,9 +111,12 @@ class UsuarioMenu:
 2- Buscar livro por Titulo
 3- Buscar livro por Autor
 4- Buscar livro por Gênero
-5- Ver todos os livros""")
-        escolha_busca = input("Digite aqui sua escolha: ")
-
+5- Ver todos os livros
+9- Retornar""")
+        escolha_busca =self.methodInput(mensagem="Digite aqui sua escolha: ")
+        if escolha_busca == "9":
+            os.system('cls')
+            return 
         if escolha_busca == '1':
             self.buscarPorId()
         elif escolha_busca == '2':
@@ -252,39 +137,47 @@ class UsuarioMenu:
         else:
             print("Sem movimento por aqui! :)")
 
-            ver_livro = input(
+            ver_livro = self.methodInput(
                 "Deseja ver os livros?\n1 - Sim\n2 - Não\n\nDigite aqui sua escolha: ")
+            if ver_livro == "$":
+                return
+            
             if ver_livro == '1':
                 print("")
                 self.pegarLivroBusca(mostrar_livros=True)
             elif ver_livro == '2':
                 self.menu()
-            else:
-                print("Valor inválido, tente novamente!\n")
 
     def buscarPorId(self):
         os.system('cls')
-        escolha_busca_id = int(input('Digite o ID do livro: '))
+        escolha_busca_id = int(self.methodInput(mensagem="Digite aqui o ID do livro: "))
+        if escolha_busca_id == "$":
+            return
         print("")
-        biblioteca.buscar_por_id(escolha_busca_id)
-        if biblioteca.verificarId(escolha_busca_id) == "Disponivel":
-            print("")
-            print("O livro está Disponível, deseja pegar emprestado?\n1- Sim\n2- Não\n\n")
+        id_atual = biblioteca.emptyId(escolha_busca_id)
+        if id_atual:
+            print(biblioteca.mostrar_por_id(id_atual[1]))
+            if biblioteca.verificarEstadoLivro(id_atual[1]) == "Disponível":
+                print("")
+                print("O livro está Disponível, deseja pegar emprestado?\n1- Sim\n2- Não\n\n")
 
-            escolha = input("Digite aqui a sua escolha: ")
-            print(" ")
-            if escolha == '1':
-                self.pegarLivroBusca(id_livro=escolha_busca_id)
-            elif escolha == '2':
-                os.system('cls')
-                self.pegarLivroBusca()
+                escolha = self.methodInput("Digite aqui a sua escolha: ")
+                if escolha == "$":
+                    return
+                            
+                print(" ")
+                if escolha == '1':
+                    self.pegarLivroBusca(id_livro=id_atual[1])
+                elif escolha == '2':
+                    os.system('cls')
+                    self.pegarLivroBusca()
             else:
-                print("Valor inválido, tente novamente!\n")
+                print("O livro não está disponível para emprestimo")
+                print("")
+                self.pegarLivroBusca()
         else:
-            print("O livro não está disponível para entrega")
-            print("")
-            self.pegarLivroBusca()
-    
+            print("Não existe nenhum livro em nossa biblioteca com esse ID")
+            
     def buscarPorTitulo(self):
         os.system('cls')
         escolha_busca_titulo = input('Digite o Título do livro: ')
@@ -327,18 +220,15 @@ class UsuarioMenu:
             print("""Se desejar pegar algum livro, digite 1
 Se desejar voltar ao menu digite 2
 Se deseja sair, digite 9\n""")
-            escolha_pegar_livro = input("Digite aqui sua escolha: ")
+            escolha_pegar_livro = self.methodInput("Digite aqui sua escolha: ")
             if escolha_pegar_livro == '1':
                 print("""Digite o ID do livro.
-Se não souber o id do livro, digite 'm' para mostrar os livros.
-Se deseja voltar ao menu, digite 'v'""")
-                input_id = input("Digite aqui: ")
+Se não souber o id do livro, digite 'm' para mostrar os livros.""")
+                input_id = self.methodInput("Digite aqui: ", True)
                 if input_id == 'm':
                     biblioteca.mostrar_livros()
                     print(" ")
                     self.pegarLivro()
-                elif input_id == 'v':
-                    return
                 else:
                     self.pegarLivro(id_parametro=input_id)
             elif escolha_pegar_livro == '2':
@@ -346,6 +236,141 @@ Se deseja voltar ao menu, digite 'v'""")
             elif escolha_pegar_livro == '9':
                 return
 
+    def methodInput(self, mensagem, campoTexto = False):
+        campo = input(mensagem)
+        while not campo.isnumeric():
+            if campoTexto and campo == "m":
+                return campo
+            campo = input('Digite um valor válido: ')
+           
+        return campo 
+
+
+class BibliotecarioMenu:
+    def menu(self):
+        os.system('cls')
+        print(f"Logado como bibliotecario!\n")
+        print(f"Seja bem vindo!\n")
+        while True:
+            print("""O que deseja fazer?\n
+1- Cadastrar livro
+2- Editar livro
+3- Excluir livro
+4- Ver livros
+5- Ver Relatório de empréstimo
+6- Voltar ao menu principal\n""")
+            escolha_menu = self.methodInput('Digite aqui o valor desejado: ')
+            if escolha_menu == '1':
+                os.system('cls')
+                self.cadastrarLivro()
+            elif escolha_menu == '2':
+                self.editarLivro()
+            elif escolha_menu == '3':
+                self.excluirLivro()
+            elif escolha_menu == '4':
+                self.verLivros()
+            elif escolha_menu == '5':
+                self.verRelatorioEmprestimo()
+            elif escolha_menu == "6": 
+                return
+            
+    def cadastrarLivro(self):
+        # biblioteca.mostrar_livros()
+        # print("")
+        # print("Esses são os livros já cadastrados ^ \n")
+        id_livro = int(self.methodInput("Digite um ID para o livro: "))
+        while biblioteca.emptyId(id_livro):
+            id_livro = self.methodInput("ID já existente!\n Tente outro ID do livro: ")
+            
+        titulo = input("Digite um Título para o Livro: ")
+        autor = input("Digite um Autor para o Livro: ")
+        genero = input("Digite um Gênero para o Livro: ")
+        confirma = self.methodInput("Confirmar cadastro?\n1- Sim\n2- Não\nR:")
+        if confirma == "1":
+            if biblioteca.cadastrar_livro(id_livro,titulo,autor,genero):
+                os.system('cls')
+                print("Livro cadastrado com sucesso!\n\n")
+                time.sleep(0.7)
+                return
+        else: 
+            print("Cadastro cancelado!")
+            time.sleep(0.7)
+            return
+            
+    def editarLivro(self):
+        os.system('cls')
+        id_livro = int(self.methodInput("Digite aqui o ID do livro que deseja editar: "))
+        verificarLivro = biblioteca.emptyId(id_livro)
+        if verificarLivro:
+            id_livro = verificarLivro[1]
+            escolha_editar = None
+            while escolha_editar != "9":
+                
+                print(biblioteca.mostrar_por_id(id_livro))
+                print("\nEscolha o que deseja editar:\n1- ID\n2- Título\n3- Autor\n4- Gênero\n9- Voltar ao menu\n")
+                escolha_editar = self.methodInput("R:")
+                
+                if escolha_editar == "1":
+                    os.system('cls')
+                    novo_id = int(self.methodInput("Digite o novo ID: "))
+                    result = biblioteca.emptyId(novo_id)
+                    print(novo_id)
+                    if result:
+                        print("\nID já em uso. Tente outro ID\n")
+                    else:
+                        aux = biblioteca.editarLivro(id_livro,novo_id=novo_id)
+                        id_livro = aux[1]
+                        print("ID editado com sucesso!\n")
+                elif escolha_editar == "2":
+                    os.system('cls')
+                    novo_titulo = input("Digite o novo Título: ")
+                    biblioteca.editarLivro(id_livro,novo_titulo=novo_titulo)
+                    print("Título editado com sucesso!")
+                elif escolha_editar == "3":
+                    os.system('cls')
+                    novo_autor = input("Digite o novo Autor: ")
+                    biblioteca.editarLivro(id_livro,novo_autor=novo_autor)
+                    print("Autor editado com sucesso!")
+                elif escolha_editar == "4":
+                    os.system('cls')
+                    novo_genero = input("Digite o novo Gênero: ")
+                    biblioteca.editarLivro(id_livro,novo_genero=novo_genero)
+                    print("Gênero editado com sucesso!")
+            return os.system('cls')
+        
+    def excluirLivro(self):
+        os.system('cls')
+        print(biblioteca.mostrar_livros())
+        print("")
+        id_livro = int(self.methodInput("Digite aqui o ID do livro que deseja excluir: "))
+        
+        verificarLivro = biblioteca.emptyId(id_livro)
+        id_livro = verificarLivro[1]
+        if verificarLivro:
+            confirma = self.methodInput("Confirmar exclusão?\n1- Sim\n2- Não\nR:")
+            if confirma == "1":
+                biblioteca.excluirLivro(id_livro)
+                print("Excluído com sucesso!")
+            else: print("Exclusão cancelada!")
+    def verLivros(self):
+        os.system('cls')
+        print(biblioteca.mostrar_livros())
+    def verRelatorioEmprestimo(self):
+        os.system('cls')
+        for r in biblioteca.relatorio_emprestimos():
+            print(r)
+            
+            
+    def methodInput(self, mensagem, campoTexto = False):
+        campo = input(mensagem)
+        while not campo.isnumeric():
+            if campoTexto and campo == "m":
+                return campo
+            campo = input('Digite um valor válido: ')
+           
+        return campo 
+
+        
 
 sistema = Sistema()
 sistema.run()
