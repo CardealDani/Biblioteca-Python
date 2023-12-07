@@ -108,4 +108,4 @@ Primeiro, quem utilizar o código, precisa ter esses elementos instalados:
   
 
 
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,12&height=180&section=footer&text=Trabalho+Final+Estrutura+de+Dados&fontAlignY=70&fontSize=40&fontColor=fff&animation=twinkling&fontAlaigny=35"/>
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=30,12&height=180&section=footer&text=Trabalho+Final+-+Estrutura+de+Dados&fontAlignY=70&fontSize=40&fontColor=fff&animation=twinkling&fontAlaigny=35"/>
