@@ -92,7 +92,7 @@ Primeiro, quem utilizar o código, precisa ter esses elementos instalados:
  Se desejar abrir em GUI:
   
    </br>
-  
+Você pode abrir o programa executal dentro da pasta programa executável e abrir o arquivo "programa" ou ir diretamente no código fonte:
 - 1- Dentro da pasta codigo_grafico, execute o seguinte comanda para instalar as bibliotecas necessárias: ```pip install -r requeriments.txt```
 - 2- Execute o arquivo programa.py
 
