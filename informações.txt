@@ -1,0 +1,65 @@
+Índice
+Sobre o projeto
+Principais Estruturas de Dados utilizadas
+Integrantes da equipe
+Configurações
+Como rodar
+
+
+👀 Sobre o projeto
+
+O projeto foi realizado na disciplina de Estruturas de Dados, do quarto semestre, do curso de Sistemas e Mídias Digitais da Universidade Federal do Ceará (UFC).
+
+O objetivo foi desenvolver um Sistema de gerenciamento de biblioteca: desenvolva um sistema de em Python, utilizando estruturas de dados apropriadas para armazenar informações sobre os livros, usuários, empréstimos, etc. E implementar, no mínimo, as seguintes funcionalidades: cadastro de livros e usuários, empréstimos e devoluções, busca por título e autor e um relatório geral de empréstimo que mostra quais os livros que estão emprestados e quem foi o tomador do empréstimo.
+
+
+🌲 Principais Estruturas de Dados utilizadas
+
+Merge Sort
+Binary Search
+List
+
+
+
+
+👩‍✈️🕵️‍♀️👩‍🎨👨‍💻👨‍💻👨‍💻 Integrantes da Equipe
+
+	
+Carolina Furtado
+≻ Desenvolvedora
+
+	
+Daniel Cardeal
+≻ Desenvolvedor
+≻ Coordenador de Testes
+
+
+
+ Visual Studio Code  Pycharm  GitHub 
+
+
+
+⚙ CONFIGURAÇÕES
+Primeiro, quem utilizar o código, precisa ter esses elementos instalados:
+
+PYTHON 3: Instalar o Python 3 na sua máquina.(Pode ser a extensão do VS Code ou pelo link: https://www.python.org/downloads/)
+
+customtkinter: Para visualizar o sistema em GUI(Graphical User Interface).
+
+tkinter: Complemento para customtkinter.
+
+tkcalendar: Calendário interativo.
+
+
+
+🛠️ COMO RODAR?:
+Se desejar abrir em GUI:
+
+
+1- Dentro da pasta codigo_grafico, execute o seguinte comanda para instalar as bibliotecas necessárias: pip install -r requeriments.txt
+2- Execute o arquivo programa.py
+
+Se desejar abrir em CMD:
+
+1- Dentro da pasta codigo_console(usuario e bibliotecario), execute o arquivo app.py.
+OBS: PARA MELHOR USO VIA CMD, RECOMENDA-SE UTILIZAR VS-CODE
