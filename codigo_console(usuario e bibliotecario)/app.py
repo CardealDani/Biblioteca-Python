@@ -1,6 +1,6 @@
 import os
 import time
-from main import *
+from biblioteca import *
 
 
 class Sistema:
@@ -8,11 +8,11 @@ class Sistema:
         while True:
             os.system('cls')
             print("""Boas vindas ao sistema de bibliotecas.
-            Escolha uma das opções abaixo para logar:
+Escolha uma das opções abaixo para logar:
 
-            1- Logar como Usuário
-            2- Logar como Bibliotecário
-            3- Sair
+1- Logar como Usuário
+2- Logar como Bibliotecário
+3- Sair
                 """)
             escolha = input('Digite aqui o valor desejado: ')
             if escolha == '1':
