@@ -28,7 +28,7 @@ etc. E implementar, no mínimo, as seguintes funcionalidades: cadastro de livros
 <br>
 <br>
   
-# 🌲 Principais Estruturas de Dados utilizadas
+# 🌲 Principais Algoritmos de Estrutura de Dados utilizadas
 </br>
 
 - Merge Sort
